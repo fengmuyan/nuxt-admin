@@ -1,0 +1,287 @@
+@import './variables.scss';
+.container {
+  width: 1200px;
+  margin: 0 auto;
+}
+
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: table;
+}
+
+.clearfix:after {
+  clear: both;
+}
+
+.clearfix {
+  *zoom: 1;
+}
+
+.f-r {
+  float: right;
+}
+
+.f-l {
+  float: left;
+}
+
+.colorSuccess {
+  color: $mainColor;
+}
+
+.colorRed {
+  color: $colorRed;
+}
+
+.tipGrey {
+  line-height: 22px;
+  color: $tipGrey;
+}
+
+.colorWhite {
+  color: #fff;
+}
+
+.bgGrey {
+  background: $bgGrey;
+}
+
+.bgWhite {
+  background: #fff;
+}
+
+.bgSuccess {
+  background: $mainColor;
+}
+
+.lineColor {
+  height: 1px;
+  background: $lineColor;
+}
+
+.bd {
+  border: 1px solid $allBorder;
+}
+
+.box-shadow {
+  box-shadow: 0px 0px 7px rgba(0, 0, 0, 0.1);
+}
+
+.img-response {
+  display: block;
+  width: 100%;
+}
+
+#app {
+  min-width: 1200px;
+  @at-root {
+    .el-dropdown-menu {
+      font-size: 12px;
+    }
+    .el-menu--horizontal {
+      * {
+        box-sizing: content-box;
+      }
+      .el-menu--popup {
+        margin-top: 1px;
+        min-width: 80px;
+        padding: 11px 14px;
+        height: 152px;
+        border: 1px solid #cccccc;
+        border-top: 2px solid $mainColor;
+        border-radius: 0;
+        .el-menu-item {
+          height: 38px;
+          line-height: 36px;
+          font-size: 14px;
+          color: #000;
+        }
+      }
+      .el-menu-item.is-active {
+        color: $mainColor !important;
+      }
+    }
+  }
+}
+
+.el-form-item {
+  margin-bottom: 20px;
+}
+
+// 按钮
+.el-button {
+  border-color: $inputBorder;
+  height: 45px;
+  line-height: 45px;
+  font-size: 18px;
+  padding: 0;
+  text-align: center;
+  width: 100%;
+  border-radius: 0;
+  display: block;
+}
+
+.el-button+.el-button {
+  margin-left: 0;
+}
+
+.el-button:hover {
+  color: #333;
+  background: #fff;
+  border-color: $mainColor;
+}
+
+.el-button--success {
+  background: $mainColor;
+  border: none;
+}
+
+.el-button--success:hover {
+  color: #fff;
+  background: $btnSuccessHover;
+}
+
+.el-button--success.is-plain {
+  color: $mainColor;
+  background: #fff;
+  border: 1px solid $mainColor;
+}
+
+.el-button--success.is-plain:hover {
+  background: $mainColor;
+}
+
+.el-button--danger {
+  border: none;
+  background-color: $colorRed
+}
+
+.el-button--danger:hover {
+  color: #fff;
+  background-color: $btnDangerHover
+}
+
+.el-button--danger.is-plain {
+  color: $colorRed;
+  background: #fff;
+  border: 1px solid $colorRed;
+}
+
+.el-button--danger.is-plain:hover {
+  background: $colorRed;
+}
+
+.el-button--purple {
+  border: none;
+  background: $colorPurple;
+  color: #fff;
+}
+
+.el-button--purple:hover {
+  color: #fff;
+  background: $colorPurple;
+  color: #fff;
+}
+
+.el-button--purple.is-plain {
+  color: $colorPurple;
+  background: #fff;
+  border: 1px solid $colorPurple;
+}
+
+.el-button--purple.is-plain:hover {
+  background: $colorPurple;
+  color: #fff;
+}
+
+// input
+.el-input--medium .el-input__inner {
+  font-size: 14px;
+  color: #333;
+  height: 38px;
+  line-height: 38px;
+  border-color: $inputBorder;
+  border-radius: 0;
+}
+
+.el-form-item.is-success .el-input__inner,
+.el-form-item.is-success .el-input__inner:focus,
+.el-form-item.is-success .el-textarea__inner,
+.el-form-item.is-success .el-textarea__inner:focus {
+  border-color: $mainColor;
+}
+
+.el-form-item.is-success .el-input__validateIcon {
+  color: $mainColor;
+}
+
+.el-textarea__inner {
+  border-radius: 0;
+}
+
+// tab
+.el-tabs__item {
+  font-size: 18px;
+}
+
+.el-tabs__item.is-active {
+  color: $mainColor;
+}
+
+.el-tabs__nav-wrap::after {
+  background-color: $lineColor;
+  height: 1px;
+}
+
+.el-tabs__active-bar {
+  background-color: $mainColor;
+  height: 2px;
+}
+
+.el-tabs__nav {
+  padding: 15px 0;
+}
+
+// radio-check
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-checkbox__input.is-indeterminate .el-checkbox__inner,
+.el-radio__input.is-checked .el-radio__inner,
+.el-radio__input.is-indeterminate .el-radio__inner {
+  background-color: $mainColor;
+  border-color: $mainColor;
+}
+
+.el-checkbox__inner:hover,
+.el-radio__inner:hover {
+  border-color: $mainColor;
+}
+
+.el-checkbox__input.is-focus .el-checkbox__inner,
+.el-radio__input.is-focus .el-radio__inner {
+  border-color: $mainColor;
+}
+
+.el-checkbox__input.is-checked+.el-checkbox__label,
+.el-radio__input.is-radio+.el-radio__label {
+  color: inherit;
+}
+
+.el-radio__inner::after {
+  background-color: $mainColor;
+}
+
+.el-radio__input.is-checked+.el-radio__label {
+  color: inherit;
+}
+
+// 图片上传
+.el-upload {
+  .el-button {
+    display: inline-block !important;
+    height: 34px !important;
+    width: 96px !important;
+    line-height: 34px !important;
+    font-size: 14px !important;
+  }
+}
