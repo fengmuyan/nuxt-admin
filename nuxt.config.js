@@ -43,7 +43,7 @@ module.exports = {
     NODE_ENV: process.env.NODE_ENV
   },
   server: {
-    port: 3002,
+    port: 8088,
     host: 'localhost',
   },
   build: {

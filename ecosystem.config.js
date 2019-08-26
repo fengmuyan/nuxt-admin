@@ -8,11 +8,11 @@ module.exports = {
     },
     env_test: {
       NODE_ENV: 'test',
-      BACKEND_URL: 'http://www.saikang.top:3000',
+      BACKEND_URL: 'http://www.saikang.top',
     },
     env_production: {
       NODE_ENV: 'production',
-      BACKEND_URL: 'http://www.saikang.top:3000',
+      BACKEND_URL: 'http://www.saikang.top',
     }
   }],
   deploy: {
