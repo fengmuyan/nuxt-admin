@@ -6,8 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "backpack dev",
-    "build": "PORT=3002 nuxt build",
-    "start": "PORT=3002 nuxt start",
+    "build": "nuxt build",
+    "start": "nuxt start",
     "prodInit": "pm2 deploy production setup",
     "prod": "pm2 deploy production"
   },
