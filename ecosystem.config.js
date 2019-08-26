@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'nuxt-jx',
+    name: 'nuxt-jx-admin',
     script: 'build/main.js',
     append_env_to_name: true,
     env: {
@@ -21,8 +21,8 @@ module.exports = {
       host: ['39.107.48.134'],
       port: '22',
       ref: 'origin/master',
-      repo: 'git@github.com:fengmuyan/myGit.git',
-      path: '/home/nuxt-pro/production',
+      repo: 'git@github.com:fengmuyan/nuxt-admin.git',
+      path: '/home/nuxt-pro-admin/production',
       ssh_options: 'StrictHostKeyChecking=no',
       'post-deploy': 'cnpm install && npm run build && pm2 startOrRestart ecosystem.config.js --env production'
     }

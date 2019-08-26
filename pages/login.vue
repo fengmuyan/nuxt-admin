@@ -1,192 +1,192 @@
 <template>
-  <div class="login">
-    <login-top></login-top>
-    <div class="login-out">
-      <div class="login-inner">
-        <el-tabs v-model="activeName">
-          <el-tab-pane label="密码登录" name="first">
-            <el-form :model="pwForm" status-icon :rules="pwRules" ref="pwForm">
-              <el-form-item prop="username">
-                <el-input
-                  type="text"
-                  v-model="pwForm.username"
-                  autocomplete="off"
-                  placeholder="手机号/用户名"
-                ></el-input>
-              </el-form-item>
-              <el-form-item prop="password">
-                <el-input
-                  type="password"
-                  placeholder="密码"
-                  v-model="pwForm.password"
-                  autocomplete="off"
-                ></el-input>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="success" :loading="pwLoading" @click="pwSubmit('pwForm')">登录</el-button>
-              </el-form-item>
-              <el-form-item prop="checked">
-                <el-checkbox v-model="checked">自动登录</el-checkbox>
-                <nuxt-link to="/register">忘记密码</nuxt-link>
-                <nuxt-link to="/register" class="colorSuccess f-r">立即注册</nuxt-link>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-          <el-tab-pane label="动态登录" name="second">
-            <el-form :model="codeForm" status-icon :rules="codeRules" ref="codeForm">
-              <el-form-item prop="username">
-                <el-input type="text" v-model.number="codeForm.username" placeholder="手机号/用户名"></el-input>
-              </el-form-item>
-              <el-form-item prop="code">
-                <el-row :gutter="20">
-                  <el-col :span="16">
-                    <el-input type="text" placeholder="验证码" v-model="codeForm.code"></el-input>
-                  </el-col>
-                  <el-col :span="8" class="code">获取验证码</el-col>
-                </el-row>
-              </el-form-item>
-              <el-form-item>
-                <el-button type="success" :loading="codeLoading" @click="codeSubmit('codeForm')">登录</el-button>
-              </el-form-item>
-              <el-form-item prop="checked">
-                <el-checkbox v-model="checked">自动登录</el-checkbox>
-                <a>忘记密码</a>
-                <a href="#3" class="colorSuccess f-r">立即注册</a>
-              </el-form-item>
-            </el-form>
-          </el-tab-pane>
-        </el-tabs>
+  <div class="login-container">
+    <div class="login-center">
+      <div class="login-left">
+        <img src="../assets/imgs/login/loginleft.png" />
       </div>
+      <el-form
+        class="login-form"
+        autocomplete="on"
+        :model="loginForm"
+        :rules="loginRules"
+        ref="loginForm"
+        label-position="left"
+      >
+        <div class="formdiv">
+          <div class="title-container">
+            <h3 class="title">会员登录</h3>
+          </div>
+          <el-form-item prop="username" class="el-form-item-login">
+            <el-input
+              name="username"
+              type="text"
+              v-model="loginForm.username"
+              autocomplete="on"
+              placeholder="用户名"
+            />
+          </el-form-item>
+          <el-form-item prop="password" class="el-form-item-login">
+            <el-input
+              name="password"
+              type="password"
+              v-model="loginForm.password"
+              autocomplete="on"
+              placeholder="密码"
+            />
+          </el-form-item>
+          <el-form-item class="remember-me">
+            <el-checkbox v-model="loginForm.rememberMe"></el-checkbox>
+            <span class="txt">自动登录</span>
+          </el-form-item>
+          <el-button type="primary" class="submit" :loading="loading">登 录</el-button>
+        </div>
+      </el-form>
     </div>
-    <login-bottom></login-bottom>
   </div>
 </template>
 <script>
-import LoginTop from "@/components/login/LoginTop";
-import LoginBottom from "@/components/login/LoginBottom";
-import { mapMutations } from "vuex";
 export default {
   name: "login",
-  layout: "login",
-  components: {
-    LoginTop,
-    LoginBottom
-  },
   data() {
     return {
-      activeName: "first",
-      checked: true,
-      pwLoading: false,
-      codeLoading: false,
-      pwForm: {
-        password: "",
-        username: ""
-      },
-      codeForm: {
+      loginForm: {
         username: "",
-        code: ""
+        password: "",
+        rememberMe: false
       },
-      pwRules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
-        ],
-        password: [{ required: true, message: "请输入密码", trigger: "blur" }]
-      },
-      codeRules: {
-        username: [
-          { required: true, message: "请输入用户名", trigger: "blur" }
-        ],
-        code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
-      }
+      loginRules: {},
+      loading: false
     };
-  },
-  ...mapMutations({
-    toggle: "user/setUserInfo"
-  }),
-  methods: {
-    pwSubmit: this.$utils.throttle(function(formName) {
-      this.$refs[formName].validate(async valid => {
-        if (valid) {
-          try {
-            this.pwLoading = true;
-            const { username, password } = this.pwForm;
-            const { code, msg, userInfo } = await this.$axios.login({
-              username,
-              password: this.$utils.encrypt(JSON.stringify(password))
-            });
-            this.$utils.apiResponse(this, code, {
-              sucStr: "登陆成功",
-              errStr: msg,
-              nextSucAction: () => {
-                this.$store.dispatch("setUserInfo", userInfo).then(() => {
-                  this.$router.push({
-                    path: "/"
-                  });
-                });
-              }
-            });
-            this.pwLoading = false;
-          } catch (err) {
-            this.pwLoading = false;
-            console.log(err);
-          }
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    }, 2000),
-    async codeSubmit(formName) {
-      this.$refs[formName].validate(valid => {
-        if (valid) {
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
-      });
-    }
   }
 };
 </script>
 
-<style lang="scss">
-.login {
-  .login-out {
-    height: 600px;
-    background: url(../assets/imgs/login/login-bg.jpg) no-repeat center 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    .login-inner {
-      height: 420px;
-      width: 450px;
-      background: #fff;
+<style rel="stylesheet/scss" lang="scss">
+.login-container {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  background-color: #2d3a4b;
+  background: url("../assets/imgs/login/loginbg.jpg") center center no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  .login-center {
+    width: 1105px;
+    overflow: hidden;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -552.5px;
+    margin-top: -209.5px;
+    .login-left {
+      width: 686px;
+      float: left;
+      padding-top: 165px;
     }
-    .el-input--medium .el-input__inner {
-      height: 45px;
-      line-height: 45px;
-    }
-    .el-tabs__header {
-      margin-bottom: 40px;
-    }
-    .el-tabs {
-      width: 300px;
-      margin: 20px auto 0;
-      .el-tabs__nav {
-        width: 100%;
+    .login-form {
+      width: 419px;
+      float: left;
+      background: rgba(35, 24, 21, 0.5);
+      height: 419px;
+      border-radius: 10px;
+      .formdiv {
+        padding: 0 69px;
       }
-      .el-tabs__item {
-        width: 50%;
+    }
+    .tips {
+      font-size: 14px;
+      color: #fff;
+      margin-bottom: 10px;
+      span {
+        &:first-of-type {
+          margin-right: 16px;
+        }
+      }
+    }
+    .svg-container {
+      padding: 6px 5px 6px 15px;
+      color: #889aa4;
+      vertical-align: middle;
+      width: 30px;
+      display: inline-block;
+      &_login {
+        font-size: 20px;
+      }
+    }
+    .title-container {
+      position: relative;
+      .title {
+        font-size: 24px;
+        font-weight: 400;
+        color: #eee;
+        margin: 54px 0;
+        height: 24px;
+        line-height: 24px;
         text-align: center;
       }
-      .el-tabs__active-bar {
-        width: 50% !important;
+      .set-language {
+        color: #fff;
+        position: absolute;
+        top: 5px;
+        right: 0px;
       }
-      .el-button {
-        margin-top: 10px;
+    }
+    .show-pwd {
+      position: absolute;
+      right: 10px;
+      top: 7px;
+      font-size: 16px;
+      color: #889aa4;
+      cursor: pointer;
+      user-select: none;
+    }
+    .thirdparty-button {
+      position: absolute;
+      right: 35px;
+      bottom: 28px;
+    }
+    .submit {
+      height: 44px;
+      font-size: 18px;
+      color: #fff;
+      background: #006ed6;
+      border-color: #006ed6;
+      width: 100%;
+      border-radius: 10px;
+    }
+    .el-input {
+      display: inline-block;
+      height: 44px;
+      input {
+        background: #fff;
+        border: 0px;
+        -webkit-appearance: none;
+        border-radius: 10px;
+        padding: 12px 5px 12px 15px;
+        color: #eee;
+        height: 44px;
+        color: #000;
       }
-      .code {
-        line-height: 40px;
+    }
+    .el-form-item-login {
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
+      width: 279px;
+      height: 44px;
+      margin: 0 auto 26px;
+    }
+    .remember-me {
+      height: 17px;
+      line-height: 14px;
+      overflow: hidden;
+      padding-top: 3px;
+      margin-bottom: 25px;
+      .el-form-item__content {
+        line-height: 14px;
+      }
+      .txt {
+        margin-left: 5px;
+        color: #fff;
       }
     }
   }
