@@ -112,7 +112,7 @@ var start = function () {
         switch (_context.prev = _context.next) {
           case 0:
             nuxt = new __WEBPACK_IMPORTED_MODULE_3_nuxt__["Nuxt"](config);
-            _nuxt$options$server = nuxt.options.server, _nuxt$options$server$ = _nuxt$options$server.host, host = _nuxt$options$server$ === undefined ? process.env.HOST || '127.0.0.1' : _nuxt$options$server$, _nuxt$options$server$2 = _nuxt$options$server.port, port = _nuxt$options$server$2 === undefined ? process.env.PORT || 3002 : _nuxt$options$server$2;
+            _nuxt$options$server = nuxt.options.server, _nuxt$options$server$ = _nuxt$options$server.host, host = _nuxt$options$server$ === undefined ? process.env.HOST || '127.0.0.1' : _nuxt$options$server$, _nuxt$options$server$2 = _nuxt$options$server.port, port = _nuxt$options$server$2 === undefined ? process.env.PORT || 3000 : _nuxt$options$server$2;
 
             if (!config.dev) {
               _context.next = 8;
@@ -422,6 +422,10 @@ module.exports = {
    */
   env: {
     NODE_ENV: "development"
+  },
+  server: {
+    port: 3002,
+    host: 'localhost'
   },
   build: {
     transpile: [/^element-ui/],
