@@ -421,7 +421,7 @@ module.exports = {
    ** Build configuration
    */
   env: {
-    NODE_ENV: "development"
+    NODE_ENV: "production"
   },
   server: {
     port: 3002,

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "dev": "backpack dev",
-    "build": "nuxt build",
+    "build": "backpack build",
     "start": "nuxt start",
     "prodInit": "pm2 deploy production setup",
     "prod": "pm2 deploy production"
