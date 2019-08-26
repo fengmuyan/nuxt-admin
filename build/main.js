@@ -425,7 +425,7 @@ module.exports = {
   },
   server: {
     port: 8088,
-    host: 'localhost'
+    host: '0.0.0.0'
   },
   build: {
     transpile: [/^element-ui/],
